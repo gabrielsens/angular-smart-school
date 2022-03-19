@@ -1,0 +1,10 @@
+<h1>{{title}}</h1>
+
+<ul>
+  <!-- <li>{{alunos[0]}}</li>
+  <li>{{alunos[1]}}</li> -->
+  <li *ngFor="let aluno of alunos">
+    {{aluno.nome}}
+  </li>
+
+</ul>
