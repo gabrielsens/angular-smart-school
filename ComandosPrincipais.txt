@@ -1,0 +1,11 @@
+ng new NomeProjeto   -- Criar novo projeto
+
+ng g (generate) c (component)  home (name component) -- Criar novo componente
+
+
+npm i bootstrap@4.4.1
+
+npm i ngx-bootstrap5.3.2 --save
+
+
+ng add ngx-bootstrap@5.3.2 --component dropdowns
