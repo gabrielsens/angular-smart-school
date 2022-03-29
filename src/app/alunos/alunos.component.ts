@@ -61,11 +61,18 @@ export class AlunosComponent implements OnInit {
     this.alunoForm.patchValue(aluno);
   }
 
+  alunoNovo() {
+    this.alunoSelected = new Aluno();
+    //this.alunoForm.patchValue(this.alunoSelect);
+    this.createForm()
+  }
+
   voltar() {
     this.alunoSelected = null;
   }
 
   salvarAluno(aluno: Aluno) {
+    console.log(aluno)
     this.alunoService.put(aluno.id, aluno).subscribe(
       (aluno: Aluno) => {
         console.log(aluno);

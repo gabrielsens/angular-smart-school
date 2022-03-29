@@ -57,7 +57,6 @@ export class ProfessoresComponent implements OnInit {
       (retorno: Professor) => {
         this.getAllProfessor();
         this.voltar();
-        console.log(retorno);
       },
       (error: any) => console.error(error)
     );

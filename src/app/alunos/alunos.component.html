@@ -2,14 +2,10 @@
 <div class="row">
 
   <div class="col-sm-6" *ngIf="alunoSelected">
-    <div class="row">
-      <div class="mr-auto">
-        <app-titulo [title]="'Cód. Aluno: ' + alunoSelected.id"></app-titulo>
-      </div>
-      <div class="mt-1">
-        <button class="btn btn-sm btn-outline-danger" (click)="voltar()">Voltar</button>
-      </div>
-    </div>
+
+    <app-titulo [title]="(alunoSelected.id == undefined ? 'Novo Aluno' : 'Cód. Aluno: ' + alunoSelected.id)">
+      <button class="btn btn-sm btn-outline-danger" (click)="voltar()">Voltar</button>
+    </app-titulo>
     <form [formGroup]="alunoForm" (submit)="alunoSubmit()">
       <div class="form-group">
         <label for="formGroupExampleInput">Nome</label>
@@ -31,7 +27,9 @@
   </div>
 
   <div [ngClass]="{'col-sm-6' : alunoSelected, 'col-sm-12' : !alunoSelected}"  >
-    <app-titulo [title]="title"></app-titulo>
+    <app-titulo [title]="title" >
+      <button class="btn btn-sm btn-success" (click)="alunoNovo()">Novo Aluno</button>
+    </app-titulo>
     <table class="table table-hover">
       <thead class="thead-dark">
         <tr>
