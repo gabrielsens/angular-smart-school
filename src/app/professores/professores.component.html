@@ -13,10 +13,7 @@
         <label for="formGroupExampleInput">Nome</label>
         <input type="text" formControlName="nome" class="form-control" >
       </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput2">Disciplina</label>
-        <input type="text" formControlName="disciplina" class="form-control" >
-      </div>
+      <button class="btn btn-sm btn-success" [disabled]="!professorForm.valid">Enviar</button>
     </form>
   </div>
   <div [ngClass]="{'col-sm-6': professorSelected, 'col-sm-12': !professorSelected}">
@@ -24,7 +21,7 @@
     <table class="table table-hover">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Visualizar</th>
+          <th scope="col" *ngIf="!professorSelected">Visualizar</th>
           <th scope="col">#</th>
           <th scope="col">Nome</th>
           <th scope="col">Disciplina</th>
@@ -49,7 +46,7 @@
 </div>
 
 <ng-template #template>
-  <div class="modal-body">
+  <div class="modal-body modal-show-alunos">
     <app-alunos></app-alunos>
   </div>
   <div class="modal-footer">

@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Professor } from '../models/Professor';
+import { ProfessorService } from './professor.service';
 
 @Component({
   selector: 'app-professores',
@@ -13,34 +14,32 @@ export class ProfessoresComponent implements OnInit {
   public title = "Professores";
   public professorSelected: Professor;
   public modalRef?: BsModalRef;
-  public professores = [
-    { id: 1, nome: "Pedro" , disciplina: 'Matemática', },
-    { id: 2, nome: "Maria" , disciplina: 'Física', },
-    { id: 3, nome: "Joana" , disciplina: 'Ed. Física', },
-    { id: 4, nome: "Eliza" , disciplina: 'Português', },
-    { id: 5, nome: "João" , disciplina: 'Geografia', },
-    { id: 6, nome: "Marina" , disciplina: 'Inglês', },
-    { id: 7, nome: "Elizeu" , disciplina: 'Programação', },
-    { id: 8, nome: "Beatriz" , disciplina: 'Design', },
-    { id: 9, nome: "Gabriel" , disciplina: 'Lógica', },
-  ];
+  public professores: Professor[];
 
-    constructor(private fb: FormBuilder, private modalService: BsModalService) {
+    constructor(private fb: FormBuilder, private modalService: BsModalService, private professorService: ProfessorService) {
       this.professorSelected = null;
       this.createForm()
      }
 
     ngOnInit() {
+      this.getAllProfessor();
+    }
+
+    getAllProfessor() {
+      this.professorService.getAll().subscribe(
+        (data: Professor[]) => {this.professores = data;},
+        (error: any) => {console.error(error);}
+      )
     }
 
     openModal(template: TemplateRef<any>) {
-      this.modalRef = this.modalService.show(template);
+      this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
     createForm() {
       this.professorForm = this.fb.group({
+        id: [''],
         nome: ['', Validators.required],
-        disciplina: ['', Validators.required]
       })
     }
 
@@ -53,8 +52,20 @@ export class ProfessoresComponent implements OnInit {
     this.professorSelected = null;
   }
 
-  professorSubmit() {
-    console.log(`123`);
+  salvarProfessor(professor: Professor) {
+    this.professorService.put(professor.id, professor).subscribe(
+      (retorno: Professor) => {
+        this.getAllProfessor();
+        this.voltar();
+        console.log(retorno);
+      },
+      (error: any) => console.error(error)
+    );
+    //this.getAllProfessor();
+    //this.voltar();
   }
 
+  professorSubmit() {
+    this.salvarProfessor(this.professorForm.value)
+  }
 }
