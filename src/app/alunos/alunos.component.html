@@ -28,7 +28,7 @@
 
   <div [ngClass]="{'col-sm-6' : alunoSelected, 'col-sm-12' : !alunoSelected}"  >
     <app-titulo [title]="title" >
-      <button class="btn btn-sm btn-success" (click)="alunoNovo()">Novo Aluno</button>
+      <button class="btn btn-sm btn-success" *ngIf="!alunoSelected" (click)="alunoNovo()">Novo Aluno</button>
     </app-titulo>
     <table class="table table-hover">
       <thead class="thead-dark">
